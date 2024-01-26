@@ -13,6 +13,6 @@ number. For Example: 145 is strong number
 */
 int isStrong(int);
 
-int factorial (int num);
-int power(int x , int _power);
-int countDigits(int num);
+int factorial(int);
+int power(int, int);
+int countDigits(int);
