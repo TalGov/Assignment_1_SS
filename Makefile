@@ -1,18 +1,37 @@
-CC = clang
-CFLAGS = -Wall -Werror
+CC = gcc
+CFLAGS = -Wall -std=c11
 
-SRCS = main.c advancedClassificationLoop.c basicClassification.c
-OBJS = $(SRCS:.c=.o)
+all: loops recursives recursived loopd mains maindloop maindrec
 
-.PHONY: all clean
+loops: basicClassificationLoop.o
+    ar rcs libclassloops.a basicClassificationLoop.o
 
-all: main
+recursives: basicClassificationRecursion.o
+    ar rcs libclassrec.a basicClassificationRecursion.o
 
-main: $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+recursived: basicClassificationRecursion.o
+    $(CC) -shared -o libclassrec.so basicClassificationRecursion.o
 
-%.o: %.c NumClass.h
-	$(CC) $(CFLAGS) -c -o $@ $<
+loopd: basicClassificationLoop.o
+    $(CC) -shared -o libclassloops.so basicClassificationLoop.o
+
+mains: main.o libclassloops.a
+    $(CC) -o mains main.o -L. -lclassloops
+
+maindloop: main.o libclassloops.so
+    $(CC) -o maindloop main.o -L. -lclassloops -Wl,-rpath,./
+
+maindrec: main.o libclassrec.so
+    $(CC) -o maindrec main.o -L. -lclassrec -Wl,-rpath,./
 
 clean:
-	rm -f main $(OBJS)
+    rm -f *.o *.a *.so mains maindloop maindrec
+
+basicClassificationLoop.o: basicClassificationLoop.c NumClass.h
+    $(CC) $(CFLAGS) -c basicClassificationLoop.c
+
+basicClassificationRecursion.o: basicClassificationRecursion.c NumClass.h
+    $(CC) $(CFLAGS) -c basicClassificationRecursion.c
+
+main.o: main.c NumClass.h
+    $(CC) $(CFLAGS) -c main.c
