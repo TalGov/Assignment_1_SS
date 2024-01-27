@@ -10,5 +10,8 @@
             "binaryPath": "/Users/yp/Library/CloudStorage/OneDrive-Personnel/Programmation/Etudes/תכנות מונחה עצמים/Assignment_1_SS/main",
             "binaryArgs": []
         }
-    ]
+    ],
+    "files.exclude": {
+        "**/.git": false
+    }
 }
