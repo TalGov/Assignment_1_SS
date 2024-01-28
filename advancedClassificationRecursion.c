@@ -41,16 +41,13 @@ int reverseNumber(int number, int rev_num)
         return rev_num;
     }
 
-    // get remender and update 'rev_num'
     rev_num = (rev_num * 10) + (number % 10);
 
-    // make a recursive call to 'reverseNumber'
     return reverseNumber(number / 10, rev_num);
 }
 
 int countDigits(int num)
 {
-    // printf("\nthe number we are checking is %d", num);
     int count = 0;
 
     while (num != 0)
@@ -59,7 +56,6 @@ int countDigits(int num)
         count++;
     }
 
-    // printf(" and have %d digits", count);
     return count;
 }
 

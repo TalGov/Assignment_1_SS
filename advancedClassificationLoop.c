@@ -2,6 +2,7 @@
 
 int isArmstrong(int num)
 {
+    // count the digits of the number
     int count_d = countDigits(num);
 
     if (num < 0)
