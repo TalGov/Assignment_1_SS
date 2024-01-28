@@ -12,13 +12,14 @@ number. For Example: 145 is strong number
 1! + 4! + 5! = 145
 */
 int isStrong(int);
-
+/* A simple implementation of factorial*/
 int factorial(int);
-
+/*An equivalent to the math.pow function using a loop implementation*/
 int power(int, int);
-
+/*given an int return the number of digits this number contains*/
 int countDigits(int);
-
+/*The recursive part of isArmstrong function in advancedClasificationRecursion*/
 int recArmstrong(int, int);
-
+/*The recursive part of isPalindrome function in advancedClasificationRecursion
+ir reverse the number to check for equality*/
 int reverseNumber(int, int);

@@ -3,7 +3,7 @@
 
 int isArmstrong(int num)
 {
-    if (num == 0)
+    if (num == 0) // 0 is not an armstrong number
     {
         return 0;
     }
@@ -16,17 +16,17 @@ int isArmstrong(int num)
 
 int recArmstrong(int num, int pow)
 {
-    if (num == 0)
+    if (num == 0) // base case
     {
         return 0;
     }
-    int digit = num % 10;
-    return (power(digit, pow) + recArmstrong(num / 10, pow));
+    int digit = num % 10;                                     // extracting the first digit
+    return (power(digit, pow) + recArmstrong(num / 10, pow)); // summing the power of the digit to the other digits
 }
 
 int isPalindrome(int num)
 {
-    if (num == reverseNumber(num, 0))
+    if (num == reverseNumber(num, 0)) // if the number and his revers are equals return 1
     {
         return 1;
     }
@@ -35,15 +35,15 @@ int isPalindrome(int num)
 
 int reverseNumber(int number, int rev_num)
 {
-    // base condition
-    if (number <= 0)
+
+    if (number <= 0) // base condition the number is zero or negative
     {
         return rev_num;
     }
 
-    rev_num = (rev_num * 10) + (number % 10);
+    rev_num = (rev_num * 10) + (number % 10); // shiffting the digit to the left
 
-    return reverseNumber(number / 10, rev_num);
+    return reverseNumber(number / 10, rev_num); // recursive call without the last digit
 }
 
 int countDigits(int num)
