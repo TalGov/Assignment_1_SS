@@ -35,7 +35,7 @@ int main()
         maxNum = number1;
     }
 
-    printf("\nThe Armstrong numbers are:");
+    printf("The Armstrong numbers are:");
     for (int i = minNum; i <= maxNum; i++)
     {
         if (isArmstrong(i))
