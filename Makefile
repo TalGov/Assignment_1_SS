@@ -1,37 +1,80 @@
-CC = gcc
-CFLAGS = -Wall -std=c11
+# Programs to use
+CC := gcc
+AR := ar
 
-all: loops recursives recursived loopd mains maindloop maindrec
+# Flags setup
+CFLAGS := -Wall -g
+LFLAGS := -shared
+SFLAGS := rcs
+FP := -fPIC
+MATHLIB := -lm
 
-loops: basicClassificationLoop.o
-    ar rcs libclassloops.a basicClassificationLoop.o
+# File names
+MAIN := main.c
+HEADER := NumClass.h
+LIBB := basicClassification.c
+LIBLOOP := advancedClassificationLoop.c
+LIBREC := advancedClassificationRecursion.c
+LIBLS := libclassloops.a
+LIBRS := libclassrec.a
+LIBLD := libclassloops.so
+LIBRD := libclassrec.so
 
-recursives: basicClassificationRecursion.o
-    ar rcs libclassrec.a basicClassificationRecursion.o
+# Phony tag for non-targeted commands
+.PHONY: all clean loops recursives recursived loopd
 
-recursived: basicClassificationRecursion.o
-    $(CC) -shared -o libclassrec.so basicClassificationRecursion.o
+# Build everything 
+all: mains maindloop maindrec loops recursives recursived loopd
 
-loopd: basicClassificationLoop.o
-    $(CC) -shared -o libclassloops.so basicClassificationLoop.o
+# Macros to build libraries
+loops: $(LIBLS)
 
-mains: main.o libclassloops.a
-    $(CC) -o mains main.o -L. -lclassloops
+recursives: $(LIBRS)
 
-maindloop: main.o libclassloops.so
-    $(CC) -o maindloop main.o -L. -lclassloops -Wl,-rpath,./
+recursived: $(LIBRD)
 
-maindrec: main.o libclassrec.so
-    $(CC) -o maindrec main.o -L. -lclassrec -Wl,-rpath,./
+loopd: $(LIBLD)
 
+# Build main programs
+
+# The main program with a static library of recursive implementation
+mains: $(MAIN:.c=.o) $(LIBRS)
+	$(CC) $(CFLAGS) $< ./$(LIBRS) $(MATHLIB) -o $@
+
+# The main program with a dynamic library of loops implementation
+maindloop: $(MAIN:.c=.o) $(LIBLD)
+	$(CC) $(CFLAGS) $< ./$(LIBLD) $(MATHLIB) -o $@
+
+# The main program with a dynamic library of recursive implementation
+maindrec: $(MAIN:.c=.o) $(LIBRD)
+	$(CC) $(CFLAGS) $< ./$(LIBRD) $(MATHLIB) -o $@
+
+# Compile the main program to an object file
+$(MAIN:.c=.o): $(MAIN) $(HEADER)
+	$(CC) $(CFLAGS) -c $^
+
+# Building all necessary libraries
+$(LIBRD): $(LIBREC:.c=.o) $(LIBB:.c=.o)
+	$(CC) $(LFLAGS) $(CFLAGS) $^ -o $@
+
+$(LIBLD): $(LIBLOOP:.c=.o) $(LIBB:.c=.o)
+	$(CC) $(LFLAGS) $(CFLAGS) $^ -o $@
+
+$(LIBLS): $(LIBLOOP:.c=.o) $(LIBB:.c=.o)
+	$(AR) $(SFLAGS) $@ $^
+
+$(LIBRS): $(LIBREC:.c=.o) $(LIBB:.c=.o)
+	$(AR) $(SFLAGS) $@ $^
+
+$(LIBLOOP:.c=.o): $(LIBLOOP) $(HEADER)
+	$(CC) $(CFLAGS) -c $^ $(FP)
+
+$(LIBREC:.c=.o): $(LIBREC) $(HEADER)
+	$(CC) $(CFLAGS) -c $^ $(FP)
+
+$(LIBB:.c=.o): $(LIBB) $(HEADER)
+	$(CC) $(CFLAGS) -c $^ $(FP)
+
+# Clean command to cleanup all the compiled files (*.o, *.a, *.so, *.gch, mains, maindloop, and maindrec)
 clean:
-    rm -f *.o *.a *.so mains maindloop maindrec
-
-basicClassificationLoop.o: basicClassificationLoop.c NumClass.h
-    $(CC) $(CFLAGS) -c basicClassificationLoop.c
-
-basicClassificationRecursion.o: basicClassificationRecursion.c NumClass.h
-    $(CC) $(CFLAGS) -c basicClassificationRecursion.c
-
-main.o: main.c NumClass.h
-    $(CC) $(CFLAGS) -c main.c
+	rm -f mains maindloop maindrec *.o *.a *.so *.gch

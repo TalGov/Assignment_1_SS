@@ -14,5 +14,7 @@ number. For Example: 145 is strong number
 int isStrong(int);
 
 int factorial(int);
-int power(int, int);
-int countDigits(int);
+
+int power(int x, int y);
+
+int countDigits(int x);
