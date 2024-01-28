@@ -1,4 +1,5 @@
 #include "NumClass.h"
+#include <stdio.h>
 
 int isArmstrong(int num)
 {
@@ -25,41 +26,40 @@ int recArmstrong(int num, int pow)
 
 int isPalindrome(int num)
 {
-    int count_d = countDigits(num);
-
-    if (num < 0)
-    {
-        return 0;
-    }
-
-    if (num >= 0 && num <= 9)
+    if (num == reverseNumber(num, 0))
     {
         return 1;
     }
+    return 0;
+}
 
-    int tempLast = num % 10;
-    int tempFirst = num / (power(num, count_d - 1));
-
-    if (tempFirst != tempLast)
+int reverseNumber(int number, int rev_num)
+{
+    // base condition
+    if (number <= 0)
     {
-        return 0;
+        return rev_num;
     }
 
-    num = num / 10;
-    num = num % (power(num, count_d - 2));
+    // get remender and update 'rev_num'
+    rev_num = (rev_num * 10) + (number % 10);
 
-    return isPalindrome(num);
+    // make a recursive call to 'reverseNumber'
+    return reverseNumber(number / 10, rev_num);
 }
+
 int countDigits(int num)
 {
+    // printf("\nthe number we are checking is %d", num);
     int count = 0;
-    int tempN = num;
 
-    for (; tempN != 0;)
+    while (num != 0)
     {
-        tempN = tempN / 10;
+        num = num / 10;
         count++;
     }
+
+    // printf(" and have %d digits", count);
     return count;
 }
 

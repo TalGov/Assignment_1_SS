@@ -20,3 +20,5 @@ int power(int, int);
 int countDigits(int);
 
 int recArmstrong(int, int);
+
+int reverseNumber(int, int);
