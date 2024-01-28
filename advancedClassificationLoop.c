@@ -12,7 +12,7 @@ int isArmstrong(int num)
     int sum = 0;
     int tempN = num;
 
-    for (; tempN != 0;)
+    while (tempN != 0)
     {
         sum = sum + power(tempN % 10, count_d);
         tempN = tempN / 10;
@@ -52,7 +52,7 @@ int countDigits(int num)
     int count = 0;
     int tempN = num;
 
-    for (; tempN != 0;)
+    while (tempN != 0)
     {
         tempN = tempN / 10;
         count++;
