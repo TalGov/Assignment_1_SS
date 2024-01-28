@@ -15,6 +15,8 @@ int isStrong(int);
 
 int factorial(int);
 
-int power(int x, int y);
+int power(int, int);
 
-int countDigits(int x);
+int countDigits(int);
+
+int recArmstrong(int, int);

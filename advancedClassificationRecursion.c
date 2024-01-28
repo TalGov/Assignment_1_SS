@@ -2,17 +2,27 @@
 
 int isArmstrong(int num)
 {
-    int tempN = num;
-
-    if (num < 0)
+    if (num == 0)
     {
         return 0;
     }
-    num = num % 10;
-    tempN = num / 10;
-
-    return ((power(num, tempN) + isArmstrong(tempN)) == num);
+    else
+    {
+        int count_d = countDigits(num);
+        return num == recArmstrong(num, count_d);
+    }
 }
+
+int recArmstrong(int num, int pow)
+{
+    if (num == 0)
+    {
+        return 0;
+    }
+    int digit = num % 10;
+    return (power(digit, pow) + recArmstrong(num / 10, pow));
+}
+
 int isPalindrome(int num)
 {
     int count_d = countDigits(num);
