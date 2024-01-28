@@ -50,6 +50,7 @@ int countDigits(int num)
 {
     int count = 0;
 
+    //count the digits of the number by dividing by ten 
     while (num != 0)
     {
         num = num / 10;
@@ -59,6 +60,7 @@ int countDigits(int num)
     return count;
 }
 
+//An equivalent to the math.pow function using a loop implementation
 int power(int x, int _power)
 {
     int res = 1;

@@ -72,6 +72,7 @@ int countDigits(int num)
     return count; 
 }
 
+//An equivalent to the math.pow function using a loop implementation
 int power(int x, int _power)
 {
     int res = 1;

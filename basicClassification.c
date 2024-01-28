@@ -7,7 +7,7 @@ int isStrong(int num)
 
     for (; tempN != 0;)
     {
-        sum = sum + factorial(tempN % 10);
+        sum = sum + factorial(tempN % 10); //Using an factorial function
         tempN = tempN / 10;
     }
 
@@ -37,6 +37,8 @@ int isPrime(int num)
     }
     return 1;
 }
+
+//A simple implementation of factorial- recursive function
 
 int factorial(int num)
 {

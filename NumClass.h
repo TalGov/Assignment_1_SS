@@ -12,6 +12,10 @@ number. For Example: 145 is strong number
 1! + 4! + 5! = 145
 */
 int isStrong(int);
+
+
+//Our helper functions://
+
 /* A simple implementation of factorial*/
 int factorial(int);
 /*An equivalent to the math.pow function using a loop implementation*/
